@@ -1,0 +1,40 @@
+.cell {
+  vertical-align: middle;
+  padding: 0;
+  min-width: 80px;
+}
+
+.display {
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: center; */ /* 各セルまで中央寄せになってしまう */
+  padding: 6px 8px;
+  min-height: 100px;                     /* emからpx固定に変更（font-size変更で高さが変わらないように） */
+  font-size: 1.3em;
+  white-space: pre-wrap;
+  word-break: break-all;
+  cursor: default;
+  line-height: 1.58;
+}
+
+.display:hover {
+  background-color: rgba(0, 145, 206, 0.05); /* primary の薄いホバー */
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  min-height: 100px; /* .displayと合わせる */
+  padding: 6px 8px;
+  border: 2px solid #0091ce;            /* primary */
+  border-radius: 0;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  font-family: inherit;
+  font-size: 1.3em;
+  line-height: 1.58;
+  box-sizing: border-box;
+  padding: 4px 6px;                     /* border 2px分を差し引いて.displayと位置を合わせる */
+  background-color: #fff;
+}

@@ -1,0 +1,88 @@
+.wrapper {
+  overflow-x: auto;
+  overflow: hidden;
+  border-radius: 12px;                  /* rounded.lg */
+  box-shadow: 0 4px 6px -1px oklch(0% 0 0 / 0.08), 0 2px 4px -2px oklch(0% 0 0 / 0.08); /* shadow-md */
+  border: 1px solid #dedede;            /* neutral-200 */
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table td {
+  border-bottom: 1px solid #dedede;     /* neutral-200 */
+  border-right: 1px solid #dedede;
+}
+
+.table td:last-child {
+  border-right: none;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ヘッダー行・人物名行のEditableCell内divを横中央寄せ */
+.titleCell div,
+.timeCell div,
+.personCell div {
+  justify-content: center;
+  align-items: center;     /* 上下も中央寄せ */
+  min-height: unset;       /* EditableCellの8emを無効化 */
+  padding: 4px 8px;        /* 余白を詰める */
+}
+
+/* ヘッダー行（タイトル + 朝昼夜） */
+.titleCell {
+  background-color: #1b1b1b;            /* neutral-900 */
+  color: #fafafa;
+  font-weight: 700;
+  text-align: center;
+  width: 110px;
+  font-size: 1em;
+}
+
+.timeCell {
+  background-color: #0091ce;            /* primary */
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 人物名行 */
+.personCell {
+  background-color: #f2f2f2;            /* neutral-100 */
+  text-align: center;
+  font-size: 0.8em;
+  color: #868686;                       /* neutral-500 */
+}
+
+.emptyCell {
+  background-color: #f2f2f2;            /* neutral-100 */
+  width: 110px;
+}
+
+/* 日付セル */
+.dateCell {
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 700;
+  padding: 4px 8px;
+  background-color: #fafafa;            /* neutral-50 */
+  width: 110px;
+  font-size: 1.1em;
+  color: #4d4d4d;                       /* neutral-700 */
+}
+
+/* 土日（同色） */
+.weekend td {
+  background-color: #edfdff;            /* primary-50 */
+}
+
+.weekend .dateCell {
+  background-color: #edfdff;            /* primary-50 */
+  color: #005481;                       /* primary-700 */
+}
