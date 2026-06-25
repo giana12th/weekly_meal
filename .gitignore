@@ -29,3 +29,4 @@ Book1.xlsx
 
 timestamp.txt
 .vscode/settings.json
+*.tsbuildinfo
