@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "file=$(jq -r '.tool_input.file_path // \"\"'); if echo \"$file\" | grep -qE '\\.(ts|tsx)$'; then bun run lint; fi",
+            "command": "bash .claude/hooks/lint-check.sh",
             "shell": "bash",
             "timeout": 30,
             "statusMessage": "bun run lint 実行中..."
