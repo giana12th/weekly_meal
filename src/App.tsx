@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useMealStorage } from './hooks/useMealStorage';
 import { MealCalendar } from './components/MealCalendar';
 import type { AppData, TimeKey } from './types';
@@ -8,6 +9,10 @@ import type { AppData, TimeKey } from './types';
  */
 function App() {
   const { data, save } = useMealStorage();
+  const [copiedValue, setCopiedValue] = useState<string | null>(null);
+
+  /** @param value - コピーするセルの値 */
+  const handleCopy = (value: string) => setCopiedValue(value);
 
   /**
    * ヘッダー行セルの変更を保存する
@@ -65,6 +70,8 @@ function App() {
   return (
     <MealCalendar
       data={data}
+      copiedValue={copiedValue}
+      onCopy={handleCopy}
       onHeaderChange={handleHeaderChange}
       onPersonChange={handlePersonChange}
       onMealChange={handleMealChange}

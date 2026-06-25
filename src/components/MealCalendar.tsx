@@ -20,6 +20,10 @@ const EMPTY_MEALS: DayMeals = {
 interface MealCalendarProps {
   /** アプリ全体のデータ */
   data: AppData;
+  /** コピーされたセルの値（null = コピーなし） */
+  copiedValue: string | null;
+  /** コピーボタン押下時のコールバック */
+  onCopy: (value: string) => void;
   /** ヘッダー行セル変更コールバック */
   onHeaderChange: (key: keyof AppData['headers'], value: string) => void;
   /** 人物名セル変更コールバック */
@@ -37,6 +41,8 @@ interface MealCalendarProps {
  */
 export function MealCalendar({
   data,
+  copiedValue,
+  onCopy,
   onHeaderChange,
   onPersonChange,
   onMealChange,
@@ -76,24 +82,32 @@ export function MealCalendar({
             <EditableCell
               value={headers.title}
               onChange={(v) => onHeaderChange('title', v)}
+              copiedValue={copiedValue}
+              onCopy={onCopy}
               className={styles.titleCell}
             />
             <EditableCell
               value={headers.morning}
               colSpan={2}
               onChange={(v) => onHeaderChange('morning', v)}
+              copiedValue={copiedValue}
+              onCopy={onCopy}
               className={styles.timeCell}
             />
             <EditableCell
               value={headers.noon}
               colSpan={3}
               onChange={(v) => onHeaderChange('noon', v)}
+              copiedValue={copiedValue}
+              onCopy={onCopy}
               className={styles.timeCell}
             />
             <EditableCell
               value={headers.night}
               colSpan={3}
               onChange={(v) => onHeaderChange('night', v)}
+              copiedValue={copiedValue}
+              onCopy={onCopy}
               className={styles.timeCell}
             />
           </tr>
@@ -105,6 +119,8 @@ export function MealCalendar({
                 key={`morning-person-${i}`}
                 value={name}
                 onChange={(v) => onPersonChange('morning', i, v)}
+                copiedValue={copiedValue}
+                onCopy={onCopy}
                 className={styles.personCell}
               />
             ))}
@@ -113,6 +129,8 @@ export function MealCalendar({
                 key={`noon-person-${i}`}
                 value={name}
                 onChange={(v) => onPersonChange('noon', i, v)}
+                copiedValue={copiedValue}
+                onCopy={onCopy}
                 className={styles.personCell}
               />
             ))}
@@ -121,6 +139,8 @@ export function MealCalendar({
                 key={`night-person-${i}`}
                 value={name}
                 onChange={(v) => onPersonChange('night', i, v)}
+                copiedValue={copiedValue}
+                onCopy={onCopy}
                 className={styles.personCell}
               />
             ))}
@@ -140,6 +160,8 @@ export function MealCalendar({
                     key={`${dateKey}-morning-${i}`}
                     value={v}
                     onChange={(val) => onMealChange(dateKey, 'morning', i, val)}
+                    copiedValue={copiedValue}
+                    onCopy={onCopy}
                   />
                 ))}
                 {dayMeals.noon.map((v, i) => (
@@ -147,6 +169,8 @@ export function MealCalendar({
                     key={`${dateKey}-noon-${i}`}
                     value={v}
                     onChange={(val) => onMealChange(dateKey, 'noon', i, val)}
+                    copiedValue={copiedValue}
+                    onCopy={onCopy}
                   />
                 ))}
                 {dayMeals.night.map((v, i) => (
@@ -154,6 +178,8 @@ export function MealCalendar({
                     key={`${dateKey}-night-${i}`}
                     value={v}
                     onChange={(val) => onMealChange(dateKey, 'night', i, val)}
+                    copiedValue={copiedValue}
+                    onCopy={onCopy}
                   />
                 ))}
               </tr>
