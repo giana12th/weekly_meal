@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { getDays, getDateKey, formatDate, isWeekend } from '../utils/dateUtils';
+import { calcDisplayDays, calcCalendarHeight } from '../utils/layoutUtils';
 import { EditableCell } from './EditableCell';
 import type { AppData, DayMeals, TimeKey } from '../types';
 import styles from './MealCalendar.module.css';
 
-/** 表示する日数 */
+/** 表示する日数（初期値・フォールバック） */
 const DISPLAY_DAYS = 7;
 
 /** スクロールで遡れる最大オフセット日数（30日前まで） */
@@ -49,7 +50,26 @@ export function MealCalendar({
 }: MealCalendarProps) {
   /** 昨日から遡る日数（0=昨日起点、リロードでリセット） */
   const [offset, setOffset] = useState(0);
+  /** ビューポート高さから計算した表示行数 */
+  const [displayDays, setDisplayDays] = useState(DISPLAY_DAYS);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const theadRef = useRef<HTMLTableSectionElement>(null);
+
+  const recalcDays = () => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    el.style.removeProperty('height');
+    const available = el.clientHeight;
+    const borderH = el.offsetHeight - el.clientHeight; // border-top + border-bottom
+    const headerH = theadRef.current?.offsetHeight ?? 0;
+    const rows = Math.min(calcDisplayDays(available, headerH), MAX_OFFSET + 1);
+    el.style.height = `${calcCalendarHeight(rows, headerH) + borderH}px`;
+    setDisplayDays(rows);
+  };
+
+  useLayoutEffect(() => {
+    recalcDays();
+  }, []);
 
   useEffect(() => {
     const el = wrapperRef.current;
@@ -67,16 +87,21 @@ export function MealCalendar({
     };
 
     el.addEventListener('wheel', handleWheel, { passive: false });
-    return () => el.removeEventListener('wheel', handleWheel);
+    const ro = new ResizeObserver(recalcDays);
+    ro.observe(el.parentElement ?? el);
+    return () => {
+      el.removeEventListener('wheel', handleWheel);
+      ro.disconnect();
+    };
   }, []);
 
-  const days = getDays(DISPLAY_DAYS, offset);
+  const days = getDays(displayDays, offset);
   const { headers, persons, meals } = data;
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
       <table className={styles.table}>
-        <thead>
+        <thead ref={theadRef}>
           {/* ヘッダー行: タイトル + 朝/昼/夜 */}
           <tr>
             <EditableCell

@@ -1,6 +1,6 @@
 .wrapper {
-  overflow-x: auto;
   overflow: hidden;
+  height: 100%;
   border-radius: 12px;                  /* rounded.lg */
   box-shadow: 0 4px 6px -1px oklch(0% 0 0 / 0.08), 0 2px 4px -2px oklch(0% 0 0 / 0.08); /* shadow-md */
   border: 1px solid #dedede;            /* neutral-200 */

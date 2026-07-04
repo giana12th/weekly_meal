@@ -6,9 +6,15 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 16px;
+  height: 100%;
+  overflow: hidden;
   font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', system-ui, sans-serif;
   font-size: 14px;
   color: #1b1b1b;            /* neutral-900 */
@@ -17,4 +23,5 @@ body {
 
 #root {
   width: 100%;
+  height: 100%;
 }
